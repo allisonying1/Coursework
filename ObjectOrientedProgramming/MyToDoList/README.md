@@ -1,4 +1,4 @@
-# Team 5 HW9 Design 
+# MyToDOList Design 
 
 The purpose of this program is to run a command-line TODO application. 
 The user should be able to add TODOs and edit their TODOs within the command-line. 
@@ -8,16 +8,16 @@ This program should be able to track the additions and updates of the TODOs and 
 
 ### Model:
 (TodDoList, ToDo) <br>
-We use the builder pattern in the ToDo class. Builder pattern is used to construct a complex object (ToDo) step by step and 
-the final step will return the object (ToDo). We choose to use it because the todo data structure has some fields that are optional 
+Builder pattern is used to construct a complex object (ToDo) step by step and 
+the final step will return the object (ToDo). This setup is beneficial because the todo data structure has some fields that are optional 
 and default.
 
 
 ### View: 
 (Main) <br>
-In our **_Main_** class, we are only passing primitive data types / data collections to the other class methods. It will first process 
+The **_Main_** class will recieve and pass primitive data types / data collections to the other class methods. It will first process 
 the user's arguments from the command line, and then pass the csv file name into the csv Reader class. The reader will process all the
-data entries from a given CSV file, and store them in a IToDoList ADT. We then call to the TodoHandler to complete the tasks given to
+data entries from a given CSV file, and store them in a IToDoList ADT. Main will call to the TodoHandler to complete the tasks given to
 us from the user, and with that update the CSV by using the CSVUpdate class.
 
 
