@@ -1,0 +1,4 @@
+From: insuranceCompany@ic.com
+To: [[email]]
+Subject: Insurance company – information about recent data breach
+Dear [[first_name]] [[last_name]],
