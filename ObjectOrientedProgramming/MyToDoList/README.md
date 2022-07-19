@@ -2,7 +2,7 @@
 
 The purpose of this program is to run a command-line TODO application. 
 The user should be able to add TODOs and edit their TODOs within the command-line. 
-Our program should be able to track the additions and updates of the TODOs and store them all in a CSV file. 
+This program should be able to track the additions and updates of the TODOs and store them all in a CSV file. 
 
 ## MVC Architecture
 
