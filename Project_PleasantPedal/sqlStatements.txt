@@ -1,0 +1,401 @@
+drop schema pp;
+create schema pp;
+use pp;
+
+DROP TABLE IF EXISTS SimilarTrails;
+DROP TABLE IF EXISTS Reviews;
+DROP TABLE IF EXISTS Recommendations;
+DROP TABLE IF EXISTS Favorites;
+DROP TABLE IF EXISTS BikeCounter;
+DROP TABLE IF EXISTS PedestrianCounter;
+DROP TABLE IF EXISTS Crimes;
+DROP TABLE IF EXISTS TrailNeighborhoods;
+DROP TABLE IF EXISTS Trails;
+DROP TABLE IF EXISTS Neighborhoods;
+DROP TABLE IF EXISTS Friendship;
+DROP TABLE IF EXISTS Friends;
+DROP TABLE IF EXISTS Users;
+DROP TABLE IF EXISTS MasterAdmin;
+DROP TABLE IF EXISTS Admin;
+DROP TABLE IF EXISTS Person;
+
+CREATE TABLE Person(
+UserName VARCHAR(255),
+Password VARCHAR(255) NOT NULL,
+FirstName VARCHAR(255) NOT NULL,
+LastName VARCHAR(255),
+Email VARCHAR(255),
+PhoneNumber VARCHAR(255),
+CONSTRAINT pk_Person_UserName PRIMARY KEY (UserName)
+);
+
+CREATE TABLE Admin(
+UserName VARCHAR(255),
+LastLogin TIMESTAMP,
+CONSTRAINT pk_Admin_UserName PRIMARY KEY(UserName),
+CONSTRAINT fk_Admin_UserName FOREIGN KEY(UserName)
+	REFERENCES Person(UserName)
+    ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE MasterAdmin(
+UserName VARCHAR(255),
+GroupName VARCHAR(255),
+IsMasterAdmin BOOLEAN NOT NULL,
+IsCommunityAdmin BOOLEAN NOT NULL,
+CONSTRAINT pk_MasterAdmin_UserName PRIMARY KEY(UserName),
+CONSTRAINT fk_MasterAdmin_UserName FOREIGN KEY(UserName)
+	REFERENCES Admin(UserName)
+    ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE Users(
+UserName VARCHAR(255),
+# UserId INT AUTO_INCREMENT,
+FirstName VARCHAR(255),
+LastName VARCHAR(255),
+Email VARCHAR(255),
+DateOfBirth DATE,
+Bio VARCHAR(1024),
+Address VARCHAR(1024),
+LevelStatus ENUM("BEGINNER", "INTERMEDIATE", "ADVANCED"),
+Picture BLOB,
+CONSTRAINT pk_Users_UserName PRIMARY KEY(UserName),
+CONSTRAINT fk_Users_UserName FOREIGN KEY(UserName)
+	REFERENCES Person(UserName)
+    ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE Friends(
+UserName VARCHAR(255),
+FriendName VARCHAR(255),
+CONSTRAINT pk_Friends_UserName PRIMARY KEY(UserName),
+CONSTRAINT fk_Friends_UserName FOREIGN KEY(UserName)
+	REFERENCES Users(UserName)
+    ON UPDATE CASCADE ON DELETE CASCADE
+); 
+
+
+CREATE TABLE Friendship(
+RequestId INT AUTO_INCREMENT,
+UserName VARCHAR(255),
+RequestUserName VARCHAR(255),
+CONSTRAINT pk_Friendship_RequestId PRIMARY KEY(RequestId),
+CONSTRAINT fk_Friendship_UserName FOREIGN KEY(UserName)
+	REFERENCES Users(UserName)
+    ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE Neighborhoods(
+Name VARCHAR(255),
+District VARCHAR(255),
+CONSTRAINT pk_Neighborhood_Name PRIMARY KEY(Name)
+);
+
+CREATE TABLE Trails(
+TrailId INT AUTO_INCREMENT,
+TrailName VARCHAR(255),
+Picture BLOB DEFAULT NULL,
+Description TEXT,
+Distance DOUBLE,
+Difficulty ENUM("BEGINNER", "INTERMEDIATE", "ADVANCED"),
+CONSTRAINT pk_Trails_TrailId PRIMARY KEY(TrailId)
+);
+
+CREATE TABLE TrailNeighborhoods(
+AssignmentId INT AUTO_INCREMENT,
+TrailId INT NOT NULL,
+Neighborhood VARCHAR(255),
+CONSTRAINT pk_Neighborhoods_AssignmentId PRIMARY KEY(AssignmentId),
+CONSTRAINT fk_TrailId_Neighborhood FOREIGN KEY (TrailId)
+	REFERENCES Trails(TrailId)
+    ON UPDATE CASCADE ON DELETE CASCADE,
+CONSTRAINT fk_Trail_NeighborhoodName FOREIGN KEY(Neighborhood)
+	REFERENCES Neighborhoods(Name)
+    ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE Crimes(
+OffenseId VARCHAR (255),
+ReportNumber VARCHAR (255),
+OffenseParentGroup VARCHAR(255),
+OffenseGroup VARCHAR(1024),
+ReportTime DATETIME,
+Neighborhood VARCHAR(255),
+LAT DECIMAL(10,8) NOT NULL,
+LONGITUDE DECIMAL(11,8) NOT NULL,
+CONSTRAINT pk_Crime_OffenseId PRIMARY KEY(OffenseId),
+CONSTRAINT fk_Crime_Neighborhood FOREIGN KEY(Neighborhood)
+	REFERENCES Neighborhoods(Name)
+    ON UPDATE CASCADE ON DELETE SET NULL
+);
+
+
+## The total counter refers to the total number of pedestrians recorded from all directions in one hour
+## The field adds together data from NorthCount, SouthCount, EastCount and WestCount columns
+CREATE TABLE PedestrianCounter(
+PedCountId INT AUTO_INCREMENT,
+CountTime DATETIME,
+TotalCount INT DEFAULT 0,
+NorthCount INT DEFAULT 0,
+SouthCount INT DEFAULT 0,
+EastCount INT DEFAULT 0,
+WestCount INT DEFAULT 0,
+Neighborhood VARCHAR(255),
+PedestrianTrailID INT,
+CONSTRAINT pk_PedCount_PedCountId PRIMARY KEY(PedCountId),
+CONSTRAINT fk_PedCounter_TrailId FOREIGN KEY(PedestrianTrailID)
+	REFERENCES Trails(TrailId)
+    ON UPDATE CASCADE ON DELETE SET NULL,
+CONSTRAINT fk_PedCounter_Neighborhood FOREIGN KEY(Neighborhood)
+	REFERENCES Neighborhoods(Name)
+    ON UPDATE CASCADE ON DELETE SET NULL
+);
+
+## The total counter refers to the total number of bicyclists recorded in all directions in one hour
+## The field adds together data from NorthCount, SouthCount, EastCount and WestCount columns
+CREATE TABLE BikeCounter(
+BikeCountId INT AUTO_INCREMENT,
+CountTime DATETIME,
+TotalCount INT DEFAULT 0,
+NorthCount INT DEFAULT 0,
+SouthCount INT DEFAULT 0,
+EastCount INT DEFAULT 0,
+WestCount INT DEFAULT 0,
+Neighborhood VARCHAR(255),
+BikerTrailID INT,
+CONSTRAINT pk_BikeCounter_BikeCountId PRIMARY KEY(BikeCountID),
+CONSTRAINT fk_BikeCounter_TrailID FOREIGN KEY(BikerTrailID)
+	REFERENCES Trails(TrailId)
+    ON UPDATE CASCADE ON DELETE SET NULL,
+CONSTRAINT fk_BikeCounter_Neighborhood FOREIGN KEY(Neighborhood)
+	REFERENCES Neighborhoods(Name)
+    ON UPDATE CASCADE ON DELETE SET NULL
+);
+
+CREATE TABLE Favorites(
+FavoriteId INT AUTO_INCREMENT,
+UserName VARCHAR(255),
+TrailId INT,
+CONSTRAINT pk_Favorites_FavoriteId PRIMARY KEY(FavoriteId),
+CONSTRAINT fk_Favorites_User FOREIGN KEY (UserName)
+	REFERENCES Users(UserName)
+    ON UPDATE CASCADE ON DELETE CASCADE,
+CONSTRAINT fk_Favorites_Trails FOREIGN KEY (TrailId)
+	REFERENCES Trails(TrailId)
+    ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE Recommendations (
+RecommendationId INT AUTO_INCREMENT,
+Created TIMESTAMP,
+Difficulty ENUM ("BEGINNER", "INTERMEDIATE", "ADVANCED"),
+UserName VARCHAR (255),
+TrailId INT,
+CONSTRAINT pk_Recommendations_RecommendationId PRIMARY KEY(RecommendationId),
+CONSTRAINT fk_Recommendations_User FOREIGN KEY (UserName)
+	REFERENCES Users(UserName)
+    ON UPDATE CASCADE ON DELETE SET NULL,
+CONSTRAINT fk_Recommendations_Trails FOREIGN KEY (TrailId)
+	REFERENCES Trails(TrailId)
+    ON UPDATE CASCADE ON DELETE SET NULL
+);
+
+CREATE TABLE Reviews(
+ReviewId INT AUTO_INCREMENT,
+Created TIMESTAMP,
+Rating Decimal(2,1) NOT NULL,
+Picture BLOB,
+UserName VARCHAR (255),
+TrailId INT,
+CONSTRAINT pk_Reviews_ReviewId PRIMARY KEY(ReviewId),
+CONSTRAINT fk_Reviews_User FOREIGN KEY (UserName)
+	REFERENCES Users(UserName)
+    ON UPDATE CASCADE ON DELETE SET NULL,
+CONSTRAINT fk_Reviews_Trails FOREIGN KEY (TrailId)
+	REFERENCES Trails(TrailId)
+    ON UPDATE CASCADE ON DELETE SET NULL
+);
+
+CREATE TABLE SimilarTrails(
+TrailId INT,
+SimilarTrail INT,
+CONSTRAINT pk_SimilarTrails_TrailId PRIMARY KEY(TrailId),
+CONSTRAINT fk_SimilarTrails_Trails FOREIGN KEY (TrailId)
+	REFERENCES Trails(TrailId)
+    ON UPDATE CASCADE ON DELETE CASCADE,
+CONSTRAINT fk_SimilarTrails_Favorites FOREIGN KEY (TrailId)
+	REFERENCES Favorites(TrailId)
+    ON UPDATE CASCADE ON DELETE CASCADE
+);
+SET FOREIGN_KEY_CHECKS=0;
+LOAD DATA INFILE "/tmp/neighborhoods.csv" INTO TABLE Neighborhoods
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+LOAD DATA INFILE "/tmp/trails.csv" INTO TABLE Trails
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(TrailId, TrailName, Description, Distance, Difficulty)
+SET Picture = NULL;
+
+LOAD DATA INFILE "/tmp/trailNeighborhoods.csv" INTO TABLE TrailNeighborhoods
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+## Should we keep this information?
+/*
+LOAD DATA INFILE "/tmp/counters.csv" INTO TABLE CountProgram
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+*/
+
+LOAD DATA INFILE "/tmp/fremontBikeCounter.csv" INTO TABLE BikeCounter
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(CountTime, TotalCount, EastCount, WestCount)
+SET
+	Neighborhood = "FREMONT",
+    BikerTrailID = "5";
+    
+LOAD DATA INFILE "/tmp/spokaneBikeCounter.csv" INTO TABLE BikeCounter
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(CountTime, TotalCount, EastCount, WestCount)
+SET
+	Neighborhood = "INDUSTRIAL DISTRICT",
+    BikerTrailID = "6";
+
+LOAD DATA INFILE "/tmp/i90BikeCounter.csv" INTO TABLE BikeCounter
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(CountTime, TotalCount, EastCount, WestCount)
+SET
+	Neighborhood = "LESCHI",
+    BikerTrailID = "12";
+    
+
+LOAD DATA INFILE "/tmp/i90PedCounter.csv" INTO TABLE PedestrianCounter
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(CountTime, TotalCount, EastCount, WestCount)
+SET
+	Neighborhood = "LESCHI",
+    PedestrianTrailID = "12";
+
+LOAD DATA INFILE "/tmp/2ndAveBikeCounter.csv" INTO TABLE BikeCounter
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(CountTime, TotalCount, NorthCount, SouthCount)
+SET
+	Neighborhood = "DOWNTOWN SEATTLE",
+    BikerTrailID = "7";
+
+LOAD DATA INFILE "/tmp/BurkeGilmanNBikeCounter.csv" INTO TABLE BikeCounter
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(CountTime, TotalCount, SouthCount, NorthCount)
+SET
+	Neighborhood = "SAND POINT",
+    BikerTrailID = "9";
+
+LOAD DATA INFILE "/tmp/BurkeGilmanNPedCounter.csv" INTO TABLE PedestrianCounter
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(CountTime, TotalCount, SouthCount, NorthCount)
+SET
+	Neighborhood = "SAND POINT",
+    PedestrianTrailID = "9";
+    
+
+LOAD DATA INFILE "/tmp/NW58thBikeCounter.csv" INTO TABLE BikeCounter
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(CountTime, TotalCount, EastCount, WestCount)
+SET
+	Neighborhood = "BALLARD",
+    BikerTrailID = "9";
+
+LOAD DATA INFILE "/tmp/39thAveBikeCounter.csv" INTO TABLE BikeCounter
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(CountTime, TotalCount, NorthCount, SouthCount)
+SET
+	Neighborhood = "RAVENNA",
+    BikerTrailID = "9";
+
+LOAD DATA INFILE "/tmp/chiefSealthBikeCounter.csv" INTO TABLE BikeCounter
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(CountTime, TotalCount, SouthCount, NorthCount)
+SET
+	Neighborhood = "RAINIER BEACH",
+    BikerTrailID = "10";
+    
+LOAD DATA INFILE "/tmp/chiefSealthPedCounter.csv" INTO TABLE PedestrianCounter
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(CountTime, TotalCount, SouthCount, NorthCount)
+SET
+	Neighborhood = "RAINIER BEACH",
+    PedestrianTrailID = "10";
+
+LOAD DATA INFILE "/tmp/broadwayBikeCounter.csv" INTO TABLE BikeCounter
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(CountTime, TotalCount, NorthCount, SouthCount)
+SET
+	Neighborhood = "CAPITOL HILL",
+    BikerTrailID = "12";
+    
+
+LOAD DATA INFILE "/tmp/elliotBayPedCounter.csv" INTO TABLE PedestrianCounter
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(CountTime, TotalCount, NorthCount, SouthCount)
+SET
+	Neighborhood = "INTERBAY",
+    PedestrianTrailID = "13";
+
+LOAD DATA INFILE "/tmp/elliotBayBikeCounter.csv" INTO TABLE BikeCounter
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(CountTime, TotalCount, NorthCount, SouthCount)
+SET
+	Neighborhood = "INTERBAY",
+    BikerTrailID = "13";
+
+LOAD DATA INFILE "/tmp/westlakeBikeCounter.csv" INTO TABLE BikeCounter
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(CountTime, TotalCount, NorthCount, SouthCount)
+SET
+	Neighborhood = "WESTLAKE",
+    BikerTrailID = "5";
+
+LOAD DATA INFILE "/tmp/crimeData.csv" INTO TABLE Crimes
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(ReportNumber, OffenseId, ReportTime, OffenseParentGroup, OffenseGroup, Neighborhood, LONGITUDE, LAT);
+
+
