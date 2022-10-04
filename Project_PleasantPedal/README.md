@@ -14,14 +14,14 @@ For new cyclists who want to avoid the judgment of advanced cyclists or for avid
 
 ## **Data Insights on Multi-Use Trails**
 
-Top 5 Busiest Bike Trails:
+**Top 5 Busiest Bike Trails:**
 1. Lake Union Loop (ranked Intermediate)
 2. Hiram M. Chittenden Locks (ranked Beginner)
 3. Burke Gilman- Ballard to Bothell (ranked Advanced)
 4. I-90 Trail (ranked Advanced)
 5. Alki Trail (ranked Intermediate)
 
-Top 5 Months with the most Bike Activity 
+**Top 5 Months with the most Bike Activity**
 1. May
 2. July
 3. August
@@ -36,7 +36,8 @@ Businesses that are related to “All Other Transit And Ground Passenger Transpo
 
 Higher temperatures within weather types show more pedestrians and bikers on trails. The ideal biking temperature is around 26 degrees celsius. Popular biking months fall somewhere between Spring and Summer. Biking activity increases during Sunny weather, though Rain does not seem to be a major deterrent for Seattle Bikers. This could be influenced by Seattle’s general weather conditions, which is often rainy. Local bikers might have a higher tolerance for this type of weather. 
 
-## **Data Collection and Extraction: Limitations of using pre-existing Databases/ Data**
+## **Data Collection and Extraction:**
+Limitations of using pre-existing Databases/ Data
 1. City of Seattle has approx. 11 Bike and Pedestrian counter programs located in 11 different neighborhoods. This does not give us a truly accurate representation of the available bike trails in Seattle. 
 2. Pedestrian Counter data might not be very reliable, seems to be an under-representation of total pedestrian traffic. 
 3. Counters are located at specific coordinate points on a trail and does not give a full-representation of the entire trail traffic. 
