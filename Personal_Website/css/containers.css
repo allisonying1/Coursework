@@ -1,0 +1,153 @@
+ul {
+  list-style-type: none;
+  margin: 0vw;
+  padding: 1vw;
+}
+
+li {
+  display: inline;
+  font-size: x-small;
+}
+
+div.navigation {
+  padding-bottom: 3vh;
+  margin: auto;
+  display: flex;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: -moz-box;
+  align-items: center;
+  justify-content: center;
+}
+
+li.next_nav {
+  margin: auto;
+  padding: 1vh;
+  background-color: yellow;
+}
+li.default_nav {
+  margin: auto;
+  padding: 1vh;
+  background-color: rgb(106, 173, 199);
+}
+li.random_nav {
+  margin: auto;
+  padding: 1vh;
+  background-color: red;
+  border-radius: 50%;
+}
+
+.gallery {
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.content_container {
+  padding: 2vw;
+  margin: auto;
+  align-items: left;
+  justify-content: right;
+  border: solid red;
+}
+table {
+  margin: auto;
+}
+table,
+th,
+td {
+  padding: 2%;
+  align-items: center;
+  justify-content: center;
+  height: fit-content;
+  width: fit-content;
+}
+
+td {
+  background-color: rgb(253, 252, 193);
+  border: solid rgb(238, 255, 0);
+  font-size: medium;
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+}
+table iframe {
+  height: 100%;
+  width: 100%;
+}
+
+.poetry_container {
+  padding: 2vw;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: left;
+  justify-content: right;
+  border: solid red;
+}
+
+.poetry_container img {
+  margin-left: 25%;
+  margin-right: 25%;
+  padding: 2%;
+  height: 50%;
+  width: 50%;
+  border: ridge 1vh rgb(163, 102, 9);
+}
+
+div.expandingNote {
+  padding: 2vw;
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-top: 10%;
+  margin-bottom: 10%;
+  background-image: url("../media/textured_note.jpeg");
+  background-attachment: local;
+  background-position: center;
+  filter: grayscale();
+}
+div.expandingNote:hover {
+  transform: scale(1.5);
+  filter: none;
+}
+
+/*
+for mobile screens
+*/
+@media only screen and (max-width: 650px) {
+  .gallery {
+    margin-left: 1%;
+    margin-right: 1%;
+    display: table-row-group;
+  }
+
+  table iframe {
+    margin-right: auto;
+    margin-left: auto;
+    width: 98%;
+    height: 98%;
+  }
+
+  .content_container {
+    padding: 3vw;
+    border: solid black;
+  }
+
+  .poetry_container {
+    border: solid black;
+  }
+  .poetry_container img {
+    margin-left: 1%;
+    margin-right: auto;
+    height: 90%;
+    width: 90%;
+  }
+
+  div.expandingNote {
+    padding: 5%;
+    margin: auto;
+    filter: none;
+  }
+
+  div.expandingNote:hover {
+    transform: none;
+  }
+}

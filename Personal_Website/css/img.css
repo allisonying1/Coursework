@@ -1,0 +1,98 @@
+.poetry_container img:hover {
+  filter: grayscale();
+  background-color: rgb(202, 202, 202);
+}
+
+/*
+full screen sticker effects
+*/
+div.spider {
+  background-image: url("../media/spider_left.gif"),
+    url("../media/spider_top.gif");
+  background-repeat: no-repeat;
+  background-position: right bottom;
+}
+
+div.hearts {
+  background-image: url("../media/hearts.gif");
+  background-repeat: repeat-y;
+  background-position: center;
+}
+
+div.petals {
+  background-image: url("../media/petals.gif");
+}
+
+div.stars {
+  background-image: url("../media/stars.gif");
+  background-repeat: no-repeat;
+  background-position: top;
+}
+section {
+  width: 100%;
+  height: 50vh;
+}
+/*
+header backgrounds
+gifs taken from various tumblr accounts, sources are credited in cited.html file
+*/
+section.twirl {
+  background-image: url("../media/twirl.webp");
+  background-color: white;
+  background-position: center center;
+}
+
+section.tulip {
+  background-image: url("../media/tulip.webp");
+  background-color: white;
+  background-position: center center;
+}
+
+section.clock {
+  background-image: url("../media/clock.webp");
+  background-color: white;
+  background-position: center center;
+}
+
+section.faces {
+  background-image: url("../media/faces.webp");
+  background-color: white;
+  background-position: center center;
+}
+.gallery img {
+  padding: 1%;
+  margin-left: 0.5%;
+  margin-right: 0.5%;
+  width: 25%;
+  height: 25%;
+  border: ridge 1rem rgb(163, 102, 9);
+}
+
+/*
+hover over images to enlargen
+*/
+.gallery img:hover {
+  transform: scale(2);
+}
+
+/*
+for mobile screens
+*/
+@media only screen and (max-width: 650px) {
+  section {
+    height: 25vh;
+    background-size: cover;
+  }
+  div.petals {
+    background-repeat: repeat;
+    background-position: center;
+  }
+  .gallery img {
+    margin-left: 10%;
+    margin-right: auto;
+    border: ridge 5px rgb(133, 98, 47);
+  }
+  .gallery img:hover {
+    transform: none;
+  }
+}

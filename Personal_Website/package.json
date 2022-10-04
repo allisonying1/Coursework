@@ -1,0 +1,12 @@
+{
+    "name":"allison-ying-portfolio",
+    "engines": {
+        "node":"*"
+    },
+    "scripts":{
+        "start":"http-server"
+    },
+    "dependencies":{
+        "http-server":"*"
+    }
+}

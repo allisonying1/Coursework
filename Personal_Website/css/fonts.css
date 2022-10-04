@@ -1,0 +1,45 @@
+h1.header {
+  font-family: "Cherry Swash", cursive;
+  font-size: 5vw;
+  color: red;
+  text-align: center;
+}
+
+p.note {
+  font-family: "Cherry Swash", cursive;
+  font-style: italic;
+  font-weight: bold;
+  font-size: x-small;
+  text-align: left;
+}
+
+.altText {
+  font-family: "Cherry Swash", cursive;
+  font-size: 2vw;
+  color: red;
+  text-align: center;
+  background-color: white;
+}
+
+p.bio {
+  font-family: "Cherry Swash", cursive;
+  font-weight: bold;
+  font-size: large;
+  text-align: left;
+  background-color: white;
+}
+
+/*
+for mobile screens
+*/
+@media only screen and (max-width: 650px) {
+  /*
+  adjust fonts 
+  */
+  p.note {
+    font-size: medium;
+  }
+  p.bio {
+    font-size: medium;
+  }
+}

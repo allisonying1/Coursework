@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- import google font families: -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Cherry+Swash&display=swap" rel="stylesheet">
+        
+        <!-- import css style sheets-->
+        <link rel="stylesheet" href="css/fonts.css"/>
+        <link rel="stylesheet" href="css/containers.css"/>
+        <link rel="stylesheet" href="css/img.css" />
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <!-- browser title -->
+        <title>
+            Portfolio
+        </title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <!-- pretty header gif -->
+        <section class="twirl">
+        <p style="text-align:right">credit: https://baklazaan.tumblr.com/</p>
+        </section>
+        <br>
+        <div class="spider">
+        <div id="introduction">
+            <h1 class = "header">Allison Ying</h1>
+            <!-- jquery: if clicked, changes header color -->
+            <script>
+                $( document.body ).click(function() {
+                    $( "h1" ).each(function( i ) {
+                        if(this.style.color == "hotpink"){
+                            this.style.color = "cornflowerblue"
+                        }
+                        else if ( this.style.color == "cornflowerblue" ) {
+                            this.style.color = "yellowgreen";
+                        } 
+                        else if ( this.style.color == "yellowgreen" ) {
+                            this.style.color = "tomato";
+                        } 
+                        else if ( this.style.color == "tomato" ) {
+                            this.style.color = "black";
+                        } 
+                        else if ( this.style.color == "black" ) {
+                            this.style.color = "gold";
+                        } 
+                        else if ( this.style.color == "gold" ) {
+                            this.style.color = "crimson";
+                        }
+                        else if ( this.style.color == "gold" ) {
+                            this.style.color = "";
+                        }
+                        else {
+                            this.style.color = "hotpink";
+                        }
+                    });
+                });
+            </script>
+            <!-- navigation bar-->
+            <div class="navigation">
+                <ul>
+                    <li class= "next_nav"><a href="html_serve/about.html">About</a></li>
+                    <li class = "default_nav"><a href="html_serve/poetry.html">Poetry</a></li>
+                    <li class = "default_nav"><a href="html_serve/videoC.html"> Videos</a></li>
+                    <li class = "default_nav"><a href="html_serve/cited.html"> Credits</a></li>
+                    <li class = "random_nav"><a href="https://www.youtube.com/watch?v=glEE0vpK3KI" target="_blank">Surprise!</a></li>
+                </ul><br><br>
+            </div>
+                <!-- hovering (desktop) or clicking (mobile) should expand note -->
+                <div class="expandingNote">
+                    <p id="note" class="note"> 
+                        <br> Dear Reader,
+                        <br> Isn't this cryptic?<br> <br>
+                        These pages follow my journey in Digital Media and Design. If you're feeling lost, just follow the 
+                        yellow brick road (yellow buttons). If you're feeling bored, click on the red button for a surprise!
+                        <br> <br>
+                        Signed, <br>Allison
+                        <br><br>
+                        PS. Try clicking on my full name!
+                    </p>
+                </div><br><br>
+
+            <!-- navigation bar-->
+            <div class="navigation">
+                <ul>
+                    <li class= "next_nav"><a href="html_serve/about.html">About</a></li>
+                    <li class = "default_nav"><a href="html_serve/poetry.html">Poetry</a></li>
+                    <li class = "default_nav"><a href="html_serve/videoC.html"> Videos</a></li>
+                    <li class = "default_nav"><a href="html_serve/cited.html"> Credits</a></li>
+                    <li class = "random_nav"><a href="https://www.youtube.com/watch?v=glEE0vpK3KI" target="_blank">Surprise!</a></li>
+                </ul><br><br>
+            </div>   
+        </div>
+    </div>
+    </body>
+
+</html>
