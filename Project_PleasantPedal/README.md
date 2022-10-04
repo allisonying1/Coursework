@@ -1,4 +1,4 @@
-Team Members: Allison Ying, Marcela Vijil, Arjun Patel, Srishti Hegde, and and Sheetal Turaga
+Pedal Pleasant Contributors: Allison Ying, Marcela Vijil, Arjun Patel, Srishti Hegde, and and Sheetal Turaga
 
 Mission Statement: Pleasant Pedal is a web application designed for Seattle-based cyclists, from beginner to expert, who are unhappy with the crowds on popular trails and find the optimal times to ride when trails are free from other riders and pedestrians. Our interactive platform is designed with the following goals in mind: 
 1. enhanced planning capabilities for cyclists, 
